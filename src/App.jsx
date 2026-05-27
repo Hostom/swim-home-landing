@@ -132,7 +132,7 @@ export default function App() {
       <ScrollCharacter />
 
       {/* ── Navbar ───────────────────────────────────────────────────── */}
-      <header className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 md:px-12 py-4 border-b border-white/[0.06] backdrop-blur-xl bg-[#030d18]/40">
+      <header className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 md:px-12 py-4 border-b border-white/[0.06] backdrop-blur-none md:backdrop-blur-xl bg-[#030d18]/70 md:bg-[#030d18]/40">
         <div className="flex items-center gap-2.5">
           <span className="text-2xl">🏊‍♂️</span>
           <span className="font-display font-black text-xl tracking-wider text-white">
@@ -159,7 +159,7 @@ export default function App() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_50%,transparent,rgba(3,13,24,0.55)_70%,rgba(3,13,24,0.85)_100%)] pointer-events-none" />
 
           <div className="relative z-10 text-center max-w-3xl mx-auto">
-            <span className="hero-tag inline-flex items-center gap-1.5 bg-white/[0.08] border border-white/[0.12] px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-widest text-cyan-300 uppercase mb-7 backdrop-blur-md">
+            <span className="hero-tag inline-flex items-center gap-1.5 bg-white/[0.08] border border-white/[0.12] px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-widest text-cyan-300 uppercase mb-7 backdrop-blur-none sm:backdrop-blur-md">
               <Sparkles size={13} className="text-sun animate-pulse" />
               Natação Infantil Premium em Casa
             </span>
@@ -266,7 +266,7 @@ export default function App() {
                 { quote: '"Meu filho de 4 anos morria de medo de água e hoje já dá saltos e flutua sozinho. A evolução é impressionante!"', author: '— Juliana M., Mãe do Felipe' },
                 { quote: '"Começou com 2 aninhos e hoje com 6 já domina a técnica. Vale cada centavo!"', author: '— Ricardo F., Pai do Theo' },
               ].map(({ quote, author }) => (
-                <div key={author} className="reveal-item bg-white/[0.07] border border-white/[0.1] rounded-2xl p-5 backdrop-blur-sm">
+                <div key={author} className="reveal-item bg-white/[0.07] border border-white/[0.1] rounded-2xl p-5 backdrop-blur-none sm:backdrop-blur-sm">
                   <p className="italic text-white/70 text-sm leading-relaxed mb-3">{quote}</p>
                   <div className="flex items-center gap-2">
                     <span className="text-yellow-400 text-xs">★★★★★</span>
