@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: auto; /* Lenis handles smooth scroll */
+  }
+  body {
+    @apply font-sans text-white antialiased overflow-x-hidden;
+    background: #030d18;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-bold;
+  }
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #030d18; }
+::-webkit-scrollbar-thumb { background: #1A7FA8; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #7DD4F0; }
+
+/* ── Glass panel (legacy) ───────────────────────────────────────────── */
+.glass-panel {
+  background: rgba(26, 127, 168, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(125, 212, 240, 0.2);
+}
+
+/* ── Glass Immersive — the hero narrative panel style ───────────────── */
+.glass-immersive {
+  background: linear-gradient(
+    135deg,
+    rgba(3, 13, 24, 0.82) 0%,
+    rgba(5, 25, 45, 0.70) 100%
+  );
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(125, 212, 240, 0.14);
+  border-radius: 28px;
+  padding: 36px 40px;
+  box-shadow:
+    0 8px 48px rgba(3, 13, 24, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+@media (max-width: 640px) {
+  .glass-immersive {
+    padding: 28px 24px;
+    border-radius: 22px;
+  }
+}
+
+/* ── Bubble animation ───────────────────────────────────────────────── */
+.bubble {
+  position: absolute;
+  bottom: -50px;
+  background: rgba(125, 212, 240, 0.2);
+  border-radius: 50%;
+  animation: rise 15s infinite ease-in;
+  pointer-events: none;
+}
+
+.bubble::after {
+  content: '';
+  position: absolute;
+  top: 15%; left: 15%;
+  width: 30%; height: 30%;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+}
+
+@keyframes rise {
+  0%   { bottom: -50px; transform: translateX(0) scale(1); opacity: 0; }
+  10%  { opacity: 0.6; }
+  90%  { opacity: 0.4; }
+  100% { bottom: 110%; transform: translateX(80px) scale(1.2); opacity: 0; }
+}
+
+/* ── Caustic light drift ────────────────────────────────────────────── */
+@keyframes causticDrift {
+  0%   { background-position: 0% 0%; }
+  50%  { background-position: 60% 40%; }
+  100% { background-position: 120% 80%; }
+}
+
+/* ── Phase label pop-in ─────────────────────────────────────────────── */
+@keyframes labelPop {
+  from { opacity: 0; transform: translateY(10px) scale(0.92); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+
+/* ── Water ripple (kept for legacy sections) ────────────────────────── */
+.water-surface { position: relative; background: linear-gradient(180deg, #072b43 0%, #0A3D5C 100%); overflow: hidden; }
+.water-ripple {
+  position: absolute; inset: 0; opacity: 0.08;
+  background-image: radial-gradient(circle, rgba(125, 212, 240, 0.4) 10%, transparent 10.01%);
+  background-size: 40px 40px;
+  animation: ripple-move 10s infinite linear;
+}
+@keyframes ripple-move {
+  0%   { background-position: 0 0; }
+  100% { background-position: 80px 80px; }
+}
+
+/* ── Splash burst ───────────────────────────────────────────────────── */
+.splash-effect {
+  position: absolute; width: 150px; height: 150px;
+  background: radial-gradient(circle, rgba(125, 212, 240, 0.8) 0%, transparent 70%);
+  border-radius: 50%; transform: scale(0); opacity: 0; pointer-events: none;
+}
+
+/* ── Animate fade-in-up (legacy) ────────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translate(-50%, 15px); }
+  to   { opacity: 1; transform: translate(-50%, 0);    }
+}
+.animate-fade-in-up { animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+/* ── Wave bg (legacy) ───────────────────────────────────────────────── */
+@keyframes wave-bg {
+  0%   { background-position: 0% 50%;   }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%;   }
+}
+.animate-wave { animation: wave-bg 8s ease infinite; }
+
+/* ── Pool tile floor grid ───────────────────────────────────────────── */
+.pool-floor-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(125, 212, 240, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(125, 212, 240, 0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+  background-position: center top;
+  transform: perspective(600px) rotateX(68deg) scale(1.8) translateY(-60px);
+  transform-origin: center top;
+  opacity: 0.65;
+  pointer-events: none;
+  z-index: -9;
+}
+
+/* ── Swimming Pool Light Rays (Sunbeams) ────────────────────────────── */
+.pool-sun-rays {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 10%,
+    rgba(125, 212, 240, 0.04) 12%,
+    rgba(125, 212, 240, 0.07) 20%,
+    transparent 24%,
+    transparent 40%
+  );
+  background-size: 200% 200%;
+  filter: blur(14px);
+  animation: rayShimmer 12s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: -8;
+}
+
+@keyframes rayShimmer {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
