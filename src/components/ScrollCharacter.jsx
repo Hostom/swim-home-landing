@@ -6,29 +6,29 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const frames = [
-  { label: 'Bebê Peixinho (Nascimento)',   phase: '01' },
-  { label: 'Peixinho Jovem (Adaptação)',   phase: '02' },
-  { label: 'Peixe Predador (Autonomia)',   phase: '03' },
-  { label: 'Tubarão Jovem (Técnica)',      phase: '04' },
-  { label: 'Tubarão Soberano (Domínio)',   phase: '05' },
+  { label: 'Bebê Peixinho (Nascimento)',      phase: '01' },
+  { label: 'Peixinho Dourado (Crescimento)',  phase: '02' },
+  { label: 'Peixe-Palhaço (Autonomia)',       phase: '03' },
+  { label: 'Tubarãozinho Aprendiz (Técnica)',  phase: '04' },
+  { label: 'Tubarão Soberano (Domínio)',      phase: '05' },
 ];
 
 const phaseColors = [
-  { from: '#7dd4f0', to: '#ff7eb3', glow: 'rgba(125,212,240,0.55)', glowHex: '#7dd4f0' },
-  { from: '#00f2fe', to: '#4facfe', glow: 'rgba(0,242,254,0.5)',   glowHex: '#00f2fe' },
-  { from: '#38f9d7', to: '#43e0aa', glow: 'rgba(56,249,215,0.45)', glowHex: '#38f9d7' },
-  { from: '#8ec5fc', to: '#e0c3fc', glow: 'rgba(142,197,252,0.45)', glowHex: '#8ec5fc' },
-  { from: '#2575fc', to: '#00f2fe', glow: 'rgba(37,117,252,0.55)',  glowHex: '#2575fc' },
+  { from: '#ffd200', to: '#ff6a00', glow: 'rgba(255,210,0,0.55)',  glowHex: '#ffd200' }, // Baby Gold
+  { from: '#ff5e62', to: '#ff9966', glow: 'rgba(255,94,98,0.5)',   glowHex: '#ff5e62' },  // Goldfish Orange
+  { from: '#ff4b2b', to: '#ff416c', glow: 'rgba(255,75,43,0.45)',  glowHex: '#ff4b2b' },  // Clownfish Red/Orange
+  { from: '#00f2fe', to: '#4facfe', glow: 'rgba(0,242,254,0.45)',  glowHex: '#00f2fe' },  // Young Shark Cyan
+  { from: '#2575fc', to: '#1a2a6c', glow: 'rgba(37,117,252,0.55)', glowHex: '#2575fc' },  // Sovereign Indigo/Blue
 ];
 
-// ── 1. BabyFish (Bebê Peixinho - Round, cute, big eyes) ──
+// ── 1. BabyFish (Bebê Peixinho - Extremely round, cute goldfish baby) ──
 const BabyFish = () => (
   <svg width="100%" height="100%" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="babyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#7dd4f0" />
-        <stop offset="60%" stopColor="#ff758c" />
-        <stop offset="100%" stopColor="#ff7eb3" />
+        <stop offset="0%" stopColor="#ffd200" />
+        <stop offset="60%" stopColor="#ff6a00" />
+        <stop offset="100%" stopColor="#ff007f" />
       </linearGradient>
       <filter id="babyGlow" x="-25%" y="-25%" width="150%" height="150%">
         <feGaussianBlur stdDeviation="6" result="blur" />
@@ -51,8 +51,8 @@ const BabyFish = () => (
       <path d="M 105 112 Q 92 128 84 122 Q 92 112 105 112" fill="url(#babyGrad)" fillOpacity="0.6" stroke="url(#babyGrad)" strokeWidth="2.5" />
     </g>
     
-    {/* Body */}
-    <ellipse cx="112" cy="100" rx="42" ry="32" fill="url(#babyGrad)" fillOpacity="0.25" stroke="url(#babyGrad)" strokeWidth="3.5" filter="url(#babyGlow)" />
+    {/* Body - Extra Round */}
+    <ellipse cx="112" cy="100" rx="38" ry="36" fill="url(#babyGrad)" fillOpacity="0.25" stroke="url(#babyGrad)" strokeWidth="3.5" filter="url(#babyGlow)" />
     
     {/* Cute Big Eye - Pivot at (132, 90) */}
     <g style={{ transformOrigin: '132px 90px', animation: 'scEyeBlink 3.5s infinite' }}>
@@ -63,28 +63,24 @@ const BabyFish = () => (
     </g>
     
     {/* Blush */}
-    <circle cx="123" cy="103" r="5" fill="#ff758c" fillOpacity="0.6" />
+    <circle cx="123" cy="103" r="5" fill="#ff007f" fillOpacity="0.6" />
     
     {/* Mouth */}
-    <path d="M 143 103 Q 139 108 135 104" fill="none" stroke="#ff758c" strokeWidth="2.5" strokeLinecap="round" />
+    <path d="M 143 103 Q 139 108 135 104" fill="none" stroke="#ff007f" strokeWidth="2.5" strokeLinecap="round" />
     
     {/* Bubbles */}
-    <circle cx="154" cy="94" r="2.5" fill="#7dd4f0" fillOpacity="0.6" />
-    <circle cx="163" cy="87" r="3.5" fill="#7dd4f0" fillOpacity="0.4" />
+    <circle cx="154" cy="94" r="2.5" fill="#ffd200" fillOpacity="0.6" />
+    <circle cx="163" cy="87" r="3.5" fill="#ffd200" fillOpacity="0.4" />
   </svg>
 );
 
-// ── 2. JuniorFish (Peixinho Jovem - School fish, slightly elongated) ──
+// ── 2. JuniorFish (Peixinho Dourado - Classic orange round goldfish shape) ──
 const JuniorFish = () => (
   <svg width="100%" height="100%" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="juniorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#00f2fe" />
-        <stop offset="100%" stopColor="#4facfe" />
-      </linearGradient>
-      <linearGradient id="juniorAccent" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#ff0844" />
-        <stop offset="100%" stopColor="#ffb199" />
+        <stop offset="0%" stopColor="#ff5e62" />
+        <stop offset="100%" stopColor="#ff9966" />
       </linearGradient>
       <filter id="juniorGlow" x="-20%" y="-20%" width="140%" height="140%">
         <feGaussianBlur stdDeviation="5" result="blur" />
@@ -92,10 +88,10 @@ const JuniorFish = () => (
       </filter>
     </defs>
     
-    {/* Dorsal Fin */}
+    {/* Dorsal Fin - Wavy & Rounded */}
     <path d="M 105 76 Q 85 45 118 52 Q 120 70 105 76" fill="url(#juniorGrad)" fillOpacity="0.35" stroke="url(#juniorGrad)" strokeWidth="3" />
     
-    {/* Tail - Pivot at (70, 100) */}
+    {/* Tail - Symmetrical fan tail - Pivot at (70, 100) */}
     <g style={{ transformOrigin: '70px 100px', animation: 'scTailWiggleMedium 0.45s ease-in-out infinite alternate' }}>
       <path d="M 70 100 Q 32 68 38 100 Q 32 132 70 100 Z" fill="url(#juniorGrad)" fillOpacity="0.5" stroke="url(#juniorGrad)" strokeWidth="3" strokeLinejoin="round" />
       <path d="M 45 92 Q 35 85 28 88" stroke="url(#juniorGrad)" strokeWidth="2" strokeLinecap="round" />
@@ -104,11 +100,11 @@ const JuniorFish = () => (
     
     {/* Pectoral Fin - Pivot at (110, 115) */}
     <g style={{ transformOrigin: '110px 115px', animation: 'scFinFlap 0.7s ease-in-out infinite alternate' }}>
-      <path d="M 110 114 Q 96 136 86 128 Q 98 114 110 114" fill="url(#juniorAccent)" fillOpacity="0.5" stroke="url(#juniorAccent)" strokeWidth="2.5" />
+      <path d="M 110 114 Q 96 136 86 128 Q 98 114 110 114" fill="url(#juniorGrad)" fillOpacity="0.5" stroke="url(#juniorGrad)" strokeWidth="2.5" />
     </g>
     
-    {/* Body */}
-    <path d="M 70 100 C 85 73, 128 73, 153 100 C 128 127, 85 127, 70 100 Z" fill="url(#juniorGrad)" fillOpacity="0.25" stroke="url(#juniorGrad)" strokeWidth="3.5" filter="url(#juniorGlow)" />
+    {/* Body - Friendly Round Fish */}
+    <path d="M 70 100 C 85 70, 128 70, 153 100 C 128 130, 85 130, 70 100 Z" fill="url(#juniorGrad)" fillOpacity="0.25" stroke="url(#juniorGrad)" strokeWidth="3.5" filter="url(#juniorGlow)" />
     
     {/* Eye - Pivot at (130, 92) */}
     <g style={{ transformOrigin: '130px 92px', animation: 'scEyeBlink 4s infinite' }}>
@@ -119,24 +115,16 @@ const JuniorFish = () => (
     
     {/* Smile */}
     <path d="M 143 104 Q 138 110 133 105" fill="none" stroke="url(#juniorGrad)" strokeWidth="2.5" strokeLinecap="round" />
-    
-    {/* Gills */}
-    <path d="M 117 92 Q 115 100 117 108" fill="none" stroke="url(#juniorGrad)" strokeWidth="2" strokeOpacity="0.7" strokeLinecap="round" />
-    <path d="M 121 94 Q 119 100 121 106" fill="none" stroke="url(#juniorGrad)" strokeWidth="2" strokeOpacity="0.7" strokeLinecap="round" />
   </svg>
 );
 
-// ── 3. PredatorFish (Peixe Predador - Cute spiky hunter fish) ──
+// ── 3. PredatorFish (Peixe-Palhaço - Nemo! Instantly distinguishable orange & white stripes) ──
 const PredatorFish = () => (
   <svg width="100%" height="100%" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="predGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#38f9d7" />
-        <stop offset="100%" stopColor="#43e0aa" />
-      </linearGradient>
-      <linearGradient id="predAccent" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#f857a6" />
-        <stop offset="100%" stopColor="#ff5858" />
+        <stop offset="0%" stopColor="#ff4b2b" />
+        <stop offset="100%" stopColor="#ff416c" />
       </linearGradient>
       <filter id="predGlow" x="-20%" y="-20%" width="140%" height="140%">
         <feGaussianBlur stdDeviation="5" result="blur" />
@@ -144,23 +132,27 @@ const PredatorFish = () => (
       </filter>
     </defs>
     
-    {/* Dorsal Fin */}
-    <path d="M 98 72 Q 80 40 114 46 L 126 56 Q 120 70 98 72" fill="url(#predGrad)" fillOpacity="0.35" stroke="url(#predGrad)" strokeWidth="3" />
+    {/* Dorsal Fin - Round clownfish fin */}
+    <path d="M 98 72 Q 80 44 114 48 L 126 58 Q 120 70 98 72" fill="url(#predGrad)" fillOpacity="0.4" stroke="url(#predGrad)" strokeWidth="3" />
     
-    {/* Tail - Pivot at (65, 100) */}
+    {/* Tail - Rounded fan tail - Pivot at (65, 100) */}
     <g style={{ transformOrigin: '65px 100px', animation: 'scTailWiggleSlow 0.55s ease-in-out infinite alternate' }}>
-      <path d="M 65 100 Q 25 60 35 100 Q 25 140 65 100 Z" fill="url(#predGrad)" fillOpacity="0.5" stroke="url(#predGrad)" strokeWidth="3" strokeLinejoin="round" />
-      <path d="M 42 86 Q 30 75 22 80" stroke="url(#predGrad)" strokeWidth="2.5" strokeLinecap="round" />
-      <path d="M 42 114 Q 30 125 22 120" stroke="url(#predGrad)" strokeWidth="2.5" strokeLinecap="round" />
+      <path d="M 65 100 Q 28 65 38 100 Q 28 135 65 100 Z" fill="url(#predGrad)" fillOpacity="0.6" stroke="url(#predGrad)" strokeWidth="3" strokeLinejoin="round" />
+      {/* Tail stripe */}
+      <path d="M 45 88 Q 38 100 45 112" stroke="white" strokeWidth="3.5" strokeLinecap="round" />
     </g>
     
     {/* Pectoral Fin - Pivot at (112, 116) */}
     <g style={{ transformOrigin: '112px 116px', animation: 'scFinFlap 0.8s ease-in-out infinite alternate' }}>
-      <path d="M 112 115 Q 98 140 85 130 Q 98 115 112 115" fill="url(#predAccent)" fillOpacity="0.5" stroke="url(#predAccent)" strokeWidth="2.5" />
+      <path d="M 112 115 Q 98 140 85 130 Q 98 115 112 115" fill="url(#predGrad)" fillOpacity="0.5" stroke="url(#predGrad)" strokeWidth="2.5" />
     </g>
     
-    {/* Body */}
-    <path d="M 65 100 C 82 68, 134 68, 160 100 C 134 132, 82 132, 65 100 Z" fill="url(#predGrad)" fillOpacity="0.25" stroke="url(#predGrad)" strokeWidth="3.5" filter="url(#predGlow)" />
+    {/* Body - Red/Orange with white clownfish bands */}
+    <path id="clownBody" d="M 65 100 C 82 68, 134 68, 160 100 C 134 132, 82 132, 65 100 Z" fill="url(#predGrad)" fillOpacity="0.25" stroke="url(#predGrad)" strokeWidth="3.5" filter="url(#predGlow)" />
+    
+    {/* Famous White Bands (Nemo Stripes) */}
+    <path d="M 98 73 C 103 90, 103 110, 98 127" stroke="white" strokeWidth="6" strokeLinecap="round" strokeOpacity="0.85" />
+    <path d="M 125 76 C 129 92, 129 108, 125 124" stroke="white" strokeWidth="5.5" strokeLinecap="round" strokeOpacity="0.85" />
     
     {/* Eye - Pivot at (134, 90) */}
     <g style={{ transformOrigin: '134px 90px', animation: 'scEyeBlink 4.5s infinite' }}>
@@ -170,25 +162,17 @@ const PredatorFish = () => (
     </g>
     
     {/* Cute Open Mouth */}
-    <path d="M 148 101 Q 142 111 136 102 Z" fill="#ff5858" fillOpacity="0.6" stroke="url(#predGrad)" strokeWidth="2" />
-    
-    {/* Flank Stripes */}
-    <path d="M 92 84 Q 96 100 92 116" fill="none" stroke="url(#predGrad)" strokeWidth="2" strokeOpacity="0.6" strokeLinecap="round" />
-    <path d="M 99 86 Q 103 100 99 114" fill="none" stroke="url(#predGrad)" strokeWidth="2" strokeOpacity="0.6" strokeLinecap="round" />
+    <path d="M 148 101 Q 142 111 136 102 Z" fill="#ff416c" fillOpacity="0.6" stroke="url(#predGrad)" strokeWidth="2" />
   </svg>
 );
 
-// ── 4. YoungShark (Tubarão Jovem - Cute, rounded teeth, friendly shark) ──
+// ── 4. YoungShark (Tubarão Jovem - Clearly a shark: pointed snout, big triangular dorsal fin, gill slits) ──
 const YoungShark = () => (
   <svg width="100%" height="100%" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <linearGradient id="youngGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#8ec5fc" />
-        <stop offset="100%" stopColor="#e0c3fc" />
-      </linearGradient>
-      <linearGradient id="youngAccent" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#ff9a9e" />
-        <stop offset="100%" stopColor="#fecfef" />
+        <stop offset="0%" stopColor="#00f2fe" />
+        <stop offset="100%" stopColor="#4facfe" />
       </linearGradient>
       <filter id="youngGlow" x="-20%" y="-20%" width="140%" height="140%">
         <feGaussianBlur stdDeviation="5" result="blur" />
@@ -197,12 +181,12 @@ const YoungShark = () => (
     </defs>
     
     {/* Pelvic Fin */}
-    <path d="M 85 120 Q 72 135 82 132" fill="url(#youngGrad)" fillOpacity="0.4" stroke="url(#youngGrad)" strokeWidth="2.5" />
+    <path d="M 85 122 Q 72 137 82 134" fill="url(#youngGrad)" fillOpacity="0.4" stroke="url(#youngGrad)" strokeWidth="2.5" />
     
-    {/* Dorsal Fin */}
-    <path d="M 96 70 Q 100 32 120 38 Q 118 64 96 70" fill="url(#youngGrad)" fillOpacity="0.4" stroke="url(#youngGrad)" strokeWidth="3.5" />
+    {/* ICONIC SHARK DORSAL FIN - Triangular, large, shark silhouette */}
+    <path d="M 96 70 L 105 28 L 122 35 Q 118 64 96 70" fill="url(#youngGrad)" fillOpacity="0.4" stroke="url(#youngGrad)" strokeWidth="3.5" filter="url(#youngGlow)" />
     
-    {/* Tail - Pivot at (60, 100) */}
+    {/* SHARK TAIL (Heterocercal) - Pivot at (60, 100) */}
     <g style={{ transformOrigin: '60px 100px', animation: 'scTailWiggleSlow 0.6s ease-in-out infinite alternate' }}>
       <path d="M 60 100 Q 20 50 32 98 Q 15 138 60 100 Z" fill="url(#youngGrad)" fillOpacity="0.5" stroke="url(#youngGrad)" strokeWidth="3" strokeLinejoin="round" />
       <path d="M 38 88 Q 28 78 20 82" stroke="url(#youngGrad)" strokeWidth="2" />
@@ -211,11 +195,11 @@ const YoungShark = () => (
     
     {/* Pectoral Fin - Pivot at (112, 118) */}
     <g style={{ transformOrigin: '112px 118px', animation: 'scFinFlap 0.9s ease-in-out infinite alternate' }}>
-      <path d="M 112 118 Q 95 142 82 134 Q 96 116 112 118" fill="url(#youngAccent)" fillOpacity="0.5" stroke="url(#youngAccent)" strokeWidth="3" />
+      <path d="M 112 118 Q 95 142 82 134 Q 96 116 112 118" fill="url(#youngGrad)" fillOpacity="0.5" stroke="url(#youngGrad)" strokeWidth="3" />
     </g>
     
-    {/* Body */}
-    <path d="M 60 100 C 80 62, 130 62, 166 95 C 135 125, 90 128, 60 100 Z" fill="url(#youngGrad)" fillOpacity="0.25" stroke="url(#youngGrad)" strokeWidth="3.5" filter="url(#youngGlow)" />
+    {/* SHARK BODY - Pointed Snout, Aerodynamic */}
+    <path d="M 60 100 C 80 62, 120 62, 168 96 C 130 115, 90 120, 60 100 Z" fill="url(#youngGrad)" fillOpacity="0.25" stroke="url(#youngGrad)" strokeWidth="3.5" filter="url(#youngGlow)" />
     
     {/* Eye - Pivot at (134, 88) */}
     <g style={{ transformOrigin: '134px 88px', animation: 'scEyeBlink 5s infinite' }}>
@@ -225,10 +209,10 @@ const YoungShark = () => (
       <path d="M 129 80 Q 134 77 139 81" stroke="url(#youngGrad)" strokeWidth="2" strokeLinecap="round" />
     </g>
     
-    {/* Gill slits */}
-    <path d="M 114 90 Q 112 98 114 106" fill="none" stroke="url(#youngGrad)" strokeWidth="2" strokeOpacity="0.6" strokeLinecap="round" />
-    <path d="M 119 91 Q 117 98 119 105" fill="none" stroke="url(#youngGrad)" strokeWidth="2" strokeOpacity="0.6" strokeLinecap="round" />
-    <path d="M 124 92 Q 122 98 124 104" fill="none" stroke="url(#youngGrad)" strokeWidth="2" strokeOpacity="0.6" strokeLinecap="round" />
+    {/* SHARK GILLS - 3 very visible slits */}
+    <path d="M 112 90 Q 109 98 112 106" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeOpacity="0.9" />
+    <path d="M 118 91 Q 115 98 118 105" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeOpacity="0.9" />
+    <path d="M 124 92 Q 121 98 124 104" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeOpacity="0.9" />
     
     {/* Smile + soft teeth */}
     <path d="M 148 103 Q 138 110 132 105" fill="none" stroke="url(#youngGrad)" strokeWidth="2.5" strokeLinecap="round" />
@@ -237,7 +221,7 @@ const YoungShark = () => (
   </svg>
 );
 
-// ── 5. SovereignShark (Tubarão Soberano - Majestic, glowing, friendly neon shark) ──
+// ── 5. SovereignShark (Tubarão Soberano - Huge dorsal fin, glowing patterns, 4 gills, deep blue neon) ──
 const SovereignShark = () => (
   <svg width="100%" height="100%" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
@@ -259,10 +243,10 @@ const SovereignShark = () => (
     {/* Lower Fin */}
     <path d="M 85 124 Q 72 142 85 138" fill="url(#sovGrad)" fillOpacity="0.4" stroke="url(#sovGrad)" strokeWidth="3" />
     
-    {/* Dorsal Fin */}
-    <path d="M 102 70 Q 106 20 130 25 Q 126 62 102 70" fill="url(#sovGrad)" fillOpacity="0.4" stroke="url(#sovGrad)" strokeWidth="3.5" filter="url(#sovFilter)" />
+    {/* HUGE MAJESTIC SHARK DORSAL FIN */}
+    <path d="M 102 68 L 110 18 L 138 28 Q 130 60 102 68" fill="url(#sovGrad)" fillOpacity="0.4" stroke="url(#sovGrad)" strokeWidth="3.5" filter="url(#sovFilter)" />
     
-    {/* Tail - Pivot at (55, 100) */}
+    {/* SHARK TAIL (Heterocercal) - Pivot at (55, 100) */}
     <g style={{ transformOrigin: '55px 100px', animation: 'scTailWiggleSlow 0.65s ease-in-out infinite alternate' }}>
       <path d="M 55 100 Q 12 40 26 96 Q 8 148 55 100 Z" fill="url(#sovGrad)" fillOpacity="0.5" stroke="url(#sovGrad)" strokeWidth="3.5" strokeLinejoin="round" />
       <path d="M 38 82 C 28 65, 20 70, 22 85" stroke="url(#sovGlow)" strokeWidth="2" strokeOpacity="0.7" />
@@ -274,8 +258,8 @@ const SovereignShark = () => (
       <path d="M 115 118 Q 98 145 84 136 Q 98 116 115 118" fill="url(#sovGlow)" fillOpacity="0.5" stroke="url(#sovGlow)" strokeWidth="3" />
     </g>
     
-    {/* Main Body */}
-    <path d="M 55 100 C 78 58, 140 58, 176 95 C 140 130, 90 132, 55 100 Z" fill="url(#sovGrad)" fillOpacity="0.25" stroke="url(#sovGrad)" strokeWidth="3.5" filter="url(#sovFilter)" />
+    {/* SHARK BODY - Large powerful pointed shark shape */}
+    <path d="M 55 100 C 78 58, 138 58, 178 95 C 140 122, 90 125, 55 100 Z" fill="url(#sovGrad)" fillOpacity="0.25" stroke="url(#sovGrad)" strokeWidth="3.5" filter="url(#sovFilter)" />
     
     {/* Flank Stripes */}
     <path d="M 75 96 C 92 88, 115 88, 130 96" fill="none" stroke="url(#sovGlow)" strokeWidth="2.5" strokeOpacity="0.8" strokeLinecap="round" />
@@ -287,10 +271,11 @@ const SovereignShark = () => (
       <circle cx="136" cy="84" r="2.5" fill="#00f2fe" />
     </g>
     
-    {/* Gill slits */}
-    <path d="M 112 88 Q 109 98 112 108" fill="none" stroke="url(#sovGlow)" strokeWidth="2" strokeOpacity="0.7" strokeLinecap="round" />
-    <path d="M 117 89 Q 114 98 117 107" fill="none" stroke="url(#sovGlow)" strokeWidth="2" strokeOpacity="0.7" strokeLinecap="round" />
-    <path d="M 122 90 Q 119 98 122 106" fill="none" stroke="url(#sovGlow)" strokeWidth="2" strokeOpacity="0.7" strokeLinecap="round" />
+    {/* SHARK GILLS - 4 glowing slits */}
+    <path d="M 110 88 Q 107 98 110 108" fill="none" stroke="#00f2fe" strokeWidth="2.5" strokeOpacity="0.9" strokeLinecap="round" />
+    <path d="M 116 89 Q 113 98 116 107" fill="none" stroke="#00f2fe" strokeWidth="2.5" strokeOpacity="0.9" strokeLinecap="round" />
+    <path d="M 122 90 Q 119 98 122 106" fill="none" stroke="#00f2fe" strokeWidth="2.5" strokeOpacity="0.9" strokeLinecap="round" />
+    <path d="M 127 91 Q 124 98 127 105" fill="none" stroke="#00f2fe" strokeWidth="2.5" strokeOpacity="0.9" strokeLinecap="round" />
     
     {/* Friendly smile with teeth */}
     <path d="M 152 102 Q 142 115 132 105 Z" fill="#1a2a6c" fillOpacity="0.5" stroke="url(#sovGlow)" strokeWidth="2.5" />
@@ -610,7 +595,7 @@ export default function ScrollCharacter() {
                 <BabyFish />
               </div>
 
-              {/* Stage 2: Peixinho Jovem */}
+              {/* Stage 2: Peixinho Dourado */}
               <div
                 ref={el => charRefs.current[1] = el}
                 className="absolute inset-0"
@@ -619,7 +604,7 @@ export default function ScrollCharacter() {
                 <JuniorFish />
               </div>
 
-              {/* Stage 3: Peixe Predador */}
+              {/* Stage 3: Peixe-Palhaço */}
               <div
                 ref={el => charRefs.current[2] = el}
                 className="absolute inset-0"
