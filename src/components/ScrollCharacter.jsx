@@ -21,41 +21,105 @@ const phaseColors = [
   { from: '#2575fc', to: '#1a2a6c', glow: 'rgba(37,117,252,0.55)', glowHex: '#2575fc' },
 ];
 
-// Custom component to dynamically crop the black background from Nanobanana images
+// Custom component to remove the black background from Nanobanana images using
+// a flood-fill BFS from the image edges — like a "magic wand" from outside.
+// This removes only pixels reachable from the border (background + connected bubbles/glow)
+// while keeping any dark pixels that are PART of the fish body.
 const TransparentFish = ({ src, alt, className, style }) => {
   const [cleanSrc, setCleanSrc] = useState('');
 
   useEffect(() => {
     const img = new Image();
+    img.crossOrigin = 'anonymous';
     img.src = src;
     img.onload = () => {
+      const W = img.naturalWidth;
+      const H = img.naturalHeight;
       const canvas = document.createElement('canvas');
-      canvas.width = img.naturalWidth;
-      canvas.height = img.naturalHeight;
+      canvas.width = W;
+      canvas.height = H;
       const ctx = canvas.getContext('2d');
       ctx.drawImage(img, 0, 0);
-      
+
       try {
-        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const imgData = ctx.getImageData(0, 0, W, H);
         const data = imgData.data;
-        
-        // Convert any very dark pixel (black background) to transparent
-        for (let i = 0; i < data.length; i += 4) {
-          const r = data[i];
-          const g = data[i+1];
-          const b = data[i+2];
-          
-          if (r < 18 && g < 18 && b < 18) {
-            data[i+3] = 0; // Alpha transparent
+
+        // ── BFS flood-fill from all four edges ───────────────────
+        // A pixel is "background" if it's dark enough (not the neon fish colours).
+        // Threshold: luminance < 28 (very dark / near-black).
+        const BG_THRESH = 28;
+        const isBackground = (idx) => {
+          const r = data[idx], g = data[idx + 1], b = data[idx + 2];
+          return (r < BG_THRESH && g < BG_THRESH && b < BG_THRESH);
+        };
+
+        const visited = new Uint8Array(W * H); // 0 = unvisited, 1 = bg (erase)
+        const queue = [];
+
+        const enqueue = (x, y) => {
+          const pos = y * W + x;
+          if (visited[pos]) return;
+          const idx = pos * 4;
+          if (!isBackground(idx)) return;
+          visited[pos] = 1;
+          queue.push(pos);
+        };
+
+        // Seed from all four border rows/columns
+        for (let x = 0; x < W; x++) { enqueue(x, 0); enqueue(x, H - 1); }
+        for (let y = 0; y < H; y++) { enqueue(0, y); enqueue(W - 1, y); }
+
+        // Iterative BFS (avoid stack overflow on large images)
+        let head = 0;
+        while (head < queue.length) {
+          const pos = queue[head++];
+          const x = pos % W;
+          const y = (pos - x) / W;
+          if (x > 0)     enqueue(x - 1, y);
+          if (x < W - 1) enqueue(x + 1, y);
+          if (y > 0)     enqueue(x, y - 1);
+          if (y < H - 1) enqueue(x, y + 1);
+        }
+
+        // ── Apply: erase visited background pixels ────────────────
+        for (let pos = 0; pos < W * H; pos++) {
+          if (visited[pos]) {
+            data[pos * 4 + 3] = 0;
           }
         }
+
+        // ── Soft edge feather: blend alpha near newly transparent pixels ──
+        // One pass: for every opaque pixel adjacent to a transparent one, reduce alpha slightly.
+        const alpha = new Uint8Array(W * H);
+        for (let pos = 0; pos < W * H; pos++) alpha[pos] = data[pos * 4 + 3];
+
+        for (let y = 1; y < H - 1; y++) {
+          for (let x = 1; x < W - 1; x++) {
+            const pos = y * W + x;
+            if (alpha[pos] === 0) continue;
+            const neighbors = [
+              alpha[(y - 1) * W + x],
+              alpha[(y + 1) * W + x],
+              alpha[y * W + (x - 1)],
+              alpha[y * W + (x + 1)],
+            ];
+            const transparentNeighbors = neighbors.filter(a => a === 0).length;
+            if (transparentNeighbors > 0) {
+              // Fade edge pixel proportionally to how many neighbours are transparent
+              data[pos * 4 + 3] = Math.round(255 * (1 - transparentNeighbors * 0.22));
+            }
+          }
+        }
+
         ctx.putImageData(imgData, 0, 0);
-        setCleanSrc(canvas.toDataURL());
+        setCleanSrc(canvas.toDataURL('image/png'));
       } catch (e) {
-        console.error("Canvas process error: ", e);
-        setCleanSrc(src); // Fallback to raw src if failed
+        console.error('TransparentFish canvas error:', e);
+        setCleanSrc(src);
       }
     };
+    img.onerror = () => setCleanSrc(src);
   }, [src]);
 
   if (!cleanSrc) return <div className="w-full h-full animate-pulse bg-sky-950/20 rounded-full" />;
