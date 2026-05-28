@@ -6,11 +6,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const frames = [
-  { label: 'Bebê Peixinho (Nascimento)',      phase: '01' },
-  { label: 'Peixinho Dourado (Crescimento)',  phase: '02' },
-  { label: 'Peixe-Palhaço (Autonomia)',       phase: '03' },
-  { label: 'Tubarãozinho Aprendiz (Técnica)',  phase: '04' },
-  { label: 'Tubarão Soberano (Domínio)',      phase: '05' },
+  { label: 'Bebê Peixinho (Nascimento)',      phase: '01', image: '/nb_baby_fish.png',      duration: '0.5s' },
+  { label: 'Peixinho Dourado (Crescimento)',  phase: '02', image: '/nb_junior_fish.png',    duration: '0.7s' },
+  { label: 'Peixe-Palhaço (Autonomia)',       phase: '03', image: '/nb_clown_fish.png',     duration: '0.9s' },
+  { label: 'Tubarãozinho Aprendiz (Técnica)',  phase: '04', image: '/nb_young_shark.png',    duration: '1.1s' },
+  { label: 'Tubarão Soberano (Domínio)',      phase: '05', image: '/nb_sovereign_shark.png', duration: '1.4s' },
 ];
 
 const phaseColors = [
@@ -20,365 +20,6 @@ const phaseColors = [
   { from: '#00f2fe', to: '#4facfe', glow: 'rgba(0,242,254,0.45)',  glowHex: '#00f2fe' },
   { from: '#2575fc', to: '#1a2a6c', glow: 'rgba(37,117,252,0.55)', glowHex: '#2575fc' },
 ];
-
-// ── 1. BabyFish (Bebê Peixinho - Extremely detailed cute baby balloon fish) ──
-const BabyFish = () => (
-  <svg width="100%" height="100%" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="babyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#ffd200" />
-        <stop offset="50%" stopColor="#ff6a00" />
-        <stop offset="100%" stopColor="#ff007f" />
-      </linearGradient>
-      <filter id="babyGlow" x="-20%" y="-20%" width="140%" height="140%">
-        <feGaussianBlur stdDeviation="5" result="blur" />
-        <feComposite in="SourceGraphic" in2="blur" operator="over" />
-      </filter>
-    </defs>
-    
-    {/* Dorsal Fin with detailed rays */}
-    <g>
-      <path d="M 105 70 Q 88 48 110 50 Q 118 60 110 70" fill="url(#babyGrad)" fillOpacity="0.35" stroke="url(#babyGrad)" strokeWidth="2.5" />
-      <path d="M 100 64 Q 96 55 104 52" stroke="#fff" strokeWidth="1.2" strokeOpacity="0.5" />
-      <path d="M 106 66 Q 102 57 108 53" stroke="#fff" strokeWidth="1.2" strokeOpacity="0.5" />
-    </g>
-    
-    {/* Tail - Pivot at (75, 100) */}
-    <g style={{ transformOrigin: '75px 100px', animation: 'scTailWiggleFast 0.35s ease-in-out infinite alternate' }}>
-      <path d="M 75 100 C 55 80, 40 82, 42 100 C 40 118, 55 120, 75 100 Z" fill="url(#babyGrad)" fillOpacity="0.5" stroke="url(#babyGrad)" strokeWidth="3" strokeLinejoin="round" />
-      {/* Tail Rays */}
-      <path d="M 70 100 Q 50 90 44 94" stroke="#fff" strokeWidth="1.5" strokeOpacity="0.6" />
-      <path d="M 70 100 Q 48 100 42 100" stroke="#fff" strokeWidth="1.5" strokeOpacity="0.6" />
-      <path d="M 70 100 Q 50 110 44 106" stroke="#fff" strokeWidth="1.5" strokeOpacity="0.6" />
-    </g>
-    
-    {/* Pectoral Fin - Pivot at (105, 115) */}
-    <g style={{ transformOrigin: '105px 115px', animation: 'scFinFlap 0.6s ease-in-out infinite alternate' }}>
-      <path d="M 105 112 Q 92 128 84 122 Q 92 112 105 112" fill="url(#babyGrad)" fillOpacity="0.6" stroke="url(#babyGrad)" strokeWidth="2.5" />
-      <path d="M 101 114 Q 94 124 88 121" stroke="#fff" strokeWidth="1.2" strokeOpacity="0.5" />
-    </g>
-    
-    {/* Main Body Ellipse */}
-    <ellipse cx="112" cy="100" rx="38" ry="36" fill="url(#babyGrad)" fillOpacity="0.2" stroke="url(#babyGrad)" strokeWidth="3.5" filter="url(#babyGlow)" />
-    
-    {/* Body Shading Overlay (3D effect) */}
-    <path d="M 74 100 A 38 36 0 0 0 150 100 A 38 36 0 0 1 74 100 Z" fill="#000" fillOpacity="0.15" />
-    <path d="M 74 100 A 38 36 0 0 1 150 100 A 38 30 0 0 0 74 100 Z" fill="#fff" fillOpacity="0.1" />
-
-    {/* Tiny scales on baby fish */}
-    <path d="M 94 92 Q 91 95 94 98 M 98 88 Q 95 91 98 94 M 100 96 Q 97 99 100 102 M 94 104 Q 91 107 94 110" stroke="#ffd200" strokeWidth="1.5" strokeLinecap="round" strokeOpacity="0.7" />
-    
-    {/* Cute Big Eye - Pivot at (132, 90) */}
-    <g style={{ transformOrigin: '132px 90px', animation: 'scEyeBlink 3.5s infinite' }}>
-      <circle cx="132" cy="90" r="11" fill="white" />
-      <circle cx="134" cy="90" r="6" fill="#0f2230" />
-      <circle cx="132" cy="88" r="3.2" fill="white" />
-      <circle cx="136" cy="93" r="1.5" fill="white" />
-    </g>
-    
-    {/* Blush */}
-    <circle cx="123" cy="103" r="5.5" fill="#ff007f" fillOpacity="0.6" />
-    
-    {/* Mouth */}
-    <path d="M 143 103 Q 139 108 135 104" fill="none" stroke="#ff007f" strokeWidth="2.5" strokeLinecap="round" />
-    
-    {/* Bubbles */}
-    <circle cx="154" cy="94" r="2.5" fill="#ffd200" fillOpacity="0.6" />
-    <circle cx="163" cy="87" r="3.5" fill="#ffd200" fillOpacity="0.4" />
-  </svg>
-);
-
-// ── 2. JuniorFish (Peixinho Dourado - Detailed tropical orange goldfish) ──
-const JuniorFish = () => (
-  <svg width="100%" height="100%" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="juniorGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#ff5e62" />
-        <stop offset="100%" stopColor="#ff9966" />
-      </linearGradient>
-      <filter id="juniorGlow" x="-20%" y="-20%" width="140%" height="140%">
-        <feGaussianBlur stdDeviation="5" result="blur" />
-        <feComposite in="SourceGraphic" in2="blur" operator="over" />
-      </filter>
-    </defs>
-    
-    {/* Dorsal Fin with rays */}
-    <g>
-      <path d="M 105 76 Q 85 45 118 52 Q 120 70 105 76" fill="url(#juniorGrad)" fillOpacity="0.35" stroke="url(#juniorGrad)" strokeWidth="3" />
-      <path d="M 100 70 Q 92 56 108 54 M 106 72 Q 100 58 113 55 M 112 73 Q 108 62 116 57" stroke="#fff" strokeWidth="1.2" strokeOpacity="0.4" />
-    </g>
-    
-    {/* Tail - Pivot at (70, 100) */}
-    <g style={{ transformOrigin: '70px 100px', animation: 'scTailWiggleMedium 0.45s ease-in-out infinite alternate' }}>
-      <path d="M 70 100 Q 32 68 38 100 Q 32 132 70 100 Z" fill="url(#juniorGrad)" fillOpacity="0.5" stroke="url(#juniorGrad)" strokeWidth="3" strokeLinejoin="round" />
-      {/* Detailed Tail Rays */}
-      <path d="M 64 100 Q 42 80 37 84" stroke="#fff" strokeWidth="1.5" strokeOpacity="0.5" strokeLinecap="round" />
-      <path d="M 64 100 Q 40 92 36 94" stroke="#fff" strokeWidth="1.5" strokeOpacity="0.5" strokeLinecap="round" />
-      <path d="M 64 100 Q 40 108 36 106" stroke="#fff" strokeWidth="1.5" strokeOpacity="0.5" strokeLinecap="round" />
-      <path d="M 64 100 Q 42 120 37 116" stroke="#fff" strokeWidth="1.5" strokeOpacity="0.5" strokeLinecap="round" />
-    </g>
-    
-    {/* Pectoral Fin - Pivot at (110, 115) */}
-    <g style={{ transformOrigin: '110px 115px', animation: 'scFinFlap 0.7s ease-in-out infinite alternate' }}>
-      <path d="M 110 114 Q 96 136 86 128 Q 98 114 110 114" fill="url(#juniorGrad)" fillOpacity="0.5" stroke="url(#juniorGrad)" strokeWidth="2.5" />
-      <path d="M 104 118 Q 94 130 90 125" stroke="#fff" strokeWidth="1.2" strokeOpacity="0.5" />
-    </g>
-    
-    {/* Body */}
-    <path d="M 70 100 C 85 70, 128 70, 153 100 C 128 130, 85 130, 70 100 Z" fill="url(#juniorGrad)" fillOpacity="0.25" stroke="url(#juniorGrad)" strokeWidth="3.5" filter="url(#juniorGlow)" />
-    
-    {/* 3D shading & highlights */}
-    <path d="M 70 100 C 85 100, 128 100, 153 100 C 128 130, 85 130, 70 100 Z" fill="#000" fillOpacity="0.12" />
-    <path d="M 70 100 C 85 70, 128 70, 153 100 C 128 85, 85 85, 70 100 Z" fill="#fff" fillOpacity="0.08" />
-
-    {/* Elegant Scale Pattern */}
-    <g stroke="#ff9966" strokeWidth="1.2" strokeOpacity="0.6">
-      <path d="M 94 90 Q 91 93 94 96 M 94 98 Q 91 101 94 104" />
-      <path d="M 100 86 Q 97 89 100 92 M 100 94 Q 97 97 100 100 M 100 102 Q 97 105 100 108" />
-      <path d="M 106 88 Q 103 91 106 94 M 106 96 Q 103 99 106 102 M 106 104 Q 103 107 106 110" />
-      <path d="M 112 92 Q 109 95 112 98 M 112 100 Q 109 103 112 106" />
-    </g>
-    
-    {/* Eye - Pivot at (130, 92) */}
-    <g style={{ transformOrigin: '130px 92px', animation: 'scEyeBlink 4s infinite' }}>
-      <circle cx="130" cy="92" r="9.5" fill="white" />
-      <circle cx="132" cy="92" r="5" fill="#0f2230" />
-      <circle cx="130" cy="90" r="2.5" fill="white" />
-      <circle cx="134" cy="94" r="1" fill="white" />
-    </g>
-    
-    {/* Smile */}
-    <path d="M 143 104 Q 138 110 133 105" fill="none" stroke="#ff5e62" strokeWidth="2.5" strokeLinecap="round" />
-  </svg>
-);
-
-// ── 3. PredatorFish (Peixe-Palhaço - Highly detailed clownfish with black outlines) ──
-const PredatorFish = () => (
-  <svg width="100%" height="100%" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="predGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#ff4b2b" />
-        <stop offset="100%" stopColor="#ff416c" />
-      </linearGradient>
-      <filter id="predGlow" x="-20%" y="-20%" width="140%" height="140%">
-        <feGaussianBlur stdDeviation="5" result="blur" />
-        <feComposite in="SourceGraphic" in2="blur" operator="over" />
-      </filter>
-    </defs>
-    
-    {/* Dorsal Fin with black tip and rays */}
-    <g>
-      <path d="M 98 72 Q 80 44 114 48 L 126 58 Q 120 70 98 72" fill="url(#predGrad)" fillOpacity="0.4" stroke="url(#predGrad)" strokeWidth="3" />
-      {/* Black margin and white stripe on dorsal */}
-      <path d="M 88 56 Q 100 47 114 49" stroke="#111" strokeWidth="3" strokeLinecap="round" />
-      <path d="M 89 57 Q 100 50 112 51" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M 103 68 Q 98 56 109 54 M 110 70 Q 105 58 115 56" stroke="#fff" strokeWidth="1.2" strokeOpacity="0.4" />
-    </g>
-    
-    {/* Tail - Pivot at (65, 100) */}
-    <g style={{ transformOrigin: '65px 100px', animation: 'scTailWiggleSlow 0.55s ease-in-out infinite alternate' }}>
-      <path d="M 65 100 Q 28 65 38 100 Q 28 135 65 100 Z" fill="url(#predGrad)" fillOpacity="0.6" stroke="url(#predGrad)" strokeWidth="3" strokeLinejoin="round" />
-      
-      {/* Black tail border */}
-      <path d="M 33 80 Q 29 100 33 120" stroke="#111" strokeWidth="3" strokeLinecap="round" />
-      {/* Tail Rays & stripes */}
-      <path d="M 45 88 Q 38 100 45 112" stroke="white" strokeWidth="3.5" strokeLinecap="round" />
-      <path d="M 54 85 Q 46 100 54 115" stroke="#111" strokeWidth="1.5" strokeOpacity="0.3" />
-    </g>
-    
-    {/* Pectoral Fin - Pivot at (112, 116) */}
-    <g style={{ transformOrigin: '112px 116px', animation: 'scFinFlap 0.8s ease-in-out infinite alternate' }}>
-      <path d="M 112 115 Q 98 140 85 130 Q 98 115 112 115" fill="url(#predGrad)" fillOpacity="0.5" stroke="url(#predGrad)" strokeWidth="2.5" />
-      <path d="M 88 131 Q 95 137 102 126" stroke="#111" strokeWidth="3" strokeLinecap="round" />
-    </g>
-    
-    {/* Body */}
-    <path d="M 65 100 C 82 68, 134 68, 160 100 C 134 132, 82 132, 65 100 Z" fill="url(#predGrad)" fillOpacity="0.25" stroke="url(#predGrad)" strokeWidth="3.5" filter="url(#predGlow)" />
-    
-    {/* 3D shading & highlights */}
-    <path d="M 65 100 C 82 100, 134 100, 160 100 C 134 132, 82 132, 65 100 Z" fill="#000" fillOpacity="0.12" />
-
-    {/* Famous White Bands with Black Borders (Clownfish Stripes) */}
-    <g>
-      {/* Band 1 (Mid-body) */}
-      <path d="M 98 73 C 103 90, 103 110, 98 127" stroke="#111" strokeWidth="8" strokeLinecap="round" />
-      <path d="M 98 73 C 103 90, 103 110, 98 127" stroke="white" strokeWidth="5" strokeLinecap="round" />
-      
-      {/* Band 2 (Head back) */}
-      <path d="M 125 76 C 129 92, 129 108, 125 124" stroke="#111" strokeWidth="7.5" strokeLinecap="round" />
-      <path d="M 125 76 C 129 92, 129 108, 125 124" stroke="white" strokeWidth="4.5" strokeLinecap="round" />
-    </g>
-    
-    {/* Eye - Pivot at (134, 90) */}
-    <g style={{ transformOrigin: '134px 90px', animation: 'scEyeBlink 4.5s infinite' }}>
-      <circle cx="134" cy="90" r="9" fill="white" />
-      <circle cx="136" cy="90" r="5" fill="#0f2230" />
-      <circle cx="134" cy="88" r="2.5" fill="white" />
-      {/* Cute orange eye ring */}
-      <circle cx="134" cy="90" r="9" stroke="#ff4b2b" strokeWidth="1.2" fill="none" />
-    </g>
-    
-    {/* Cute Open Mouth */}
-    <path d="M 148 101 Q 142 111 136 102 Z" fill="#ff416c" fillOpacity="0.6" stroke="#111" strokeWidth="1.5" />
-  </svg>
-);
-
-// ── 4. YoungShark (Tubarão Jovem - Clearly a shark: pointed snout, ventral mouth under the snout, sharp teeth, heterocercal tail) ──
-const YoungShark = () => (
-  <svg width="100%" height="100%" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="youngGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#00f2fe" />
-        <stop offset="100%" stopColor="#4facfe" />
-      </linearGradient>
-      <linearGradient id="youngBelly" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#e0f7fa" />
-        <stop offset="100%" stopColor="#80deea" />
-      </linearGradient>
-      <filter id="youngGlow" x="-20%" y="-20%" width="140%" height="140%">
-        <feGaussianBlur stdDeviation="5" result="blur" />
-        <feComposite in="SourceGraphic" in2="blur" operator="over" />
-      </filter>
-    </defs>
-    
-    {/* Pelvic / Anal Fin */}
-    <path d="M 85 122 Q 72 137 82 134" fill="url(#youngGrad)" fillOpacity="0.4" stroke="url(#youngGrad)" strokeWidth="2.5" />
-    <path d="M 72 116 L 76 126 L 82 117 Z" fill="url(#youngGrad)" fillOpacity="0.4" stroke="url(#youngGrad)" strokeWidth="2" />
-    
-    {/* Second Dorsal Fin (near tail) */}
-    <path d="M 70 82 L 75 70 L 80 81 Z" fill="url(#youngGrad)" fillOpacity="0.4" stroke="url(#youngGrad)" strokeWidth="2" />
-    
-    {/* ICONIC SHARK DORSAL FIN - Triangular, swept-back, sharp */}
-    <g filter="url(#youngGlow)">
-      <path d="M 92 71 L 102 28 L 120 38 Q 115 67 92 71" fill="url(#youngGrad)" fillOpacity="0.45" stroke="url(#youngGrad)" strokeWidth="3.5" />
-      <path d="M 99 61 L 106 38 M 104 63 L 111 42" stroke="#fff" strokeWidth="1.5" strokeOpacity="0.4" />
-    </g>
-    
-    {/* SHARK TAIL (Heterocercal - long upper lobe, short lower lobe) - Pivot at (60, 100) */}
-    <g style={{ transformOrigin: '60px 100px', animation: 'scTailWiggleSlow 0.6s ease-in-out infinite alternate' }}>
-      <path d="M 60 100 Q 15 45 28 95 Q 12 135 60 100 Z" fill="url(#youngGrad)" fillOpacity="0.5" stroke="url(#youngGrad)" strokeWidth="3" strokeLinejoin="round" />
-      {/* Tail skeleton rays */}
-      <path d="M 52 92 L 30 68 M 52 95 L 29 80" stroke="#fff" strokeWidth="1.5" strokeOpacity="0.5" />
-      <path d="M 52 105 L 26 122" stroke="#fff" strokeWidth="1.5" strokeOpacity="0.5" />
-    </g>
-    
-    {/* Pectoral Fin - Pointed and swept back like a glider */}
-    <g style={{ transformOrigin: '112px 118px', animation: 'scFinFlap 0.9s ease-in-out infinite alternate' }}>
-      <path d="M 112 118 L 82 144 Q 96 116 112 118" fill="url(#youngGrad)" fillOpacity="0.5" stroke="url(#youngGrad)" strokeWidth="3" />
-      <path d="M 106 122 L 91 137 M 102 120 L 95 132" stroke="#fff" strokeWidth="1.2" strokeOpacity="0.5" />
-    </g>
-    
-    {/* SHARK BODY - Torpedo shape with pointed snout and ventral mouth underneath */}
-    <path d="M 60 100 C 80 62, 120 62, 175 88 L 165 97 C 156 108, 140 108, 132 99 C 105 125, 90 120, 60 100 Z" fill="url(#youngGrad)" fillOpacity="0.25" stroke="url(#youngGrad)" strokeWidth="3.5" filter="url(#youngGlow)" />
-    
-    {/* Light Countershaded Belly Overlay */}
-    <path d="M 60 100 C 80 115, 115 115, 132 99 C 140 108, 156 108, 165 97 C 145 108, 115 118, 60 100 Z" fill="url(#youngBelly)" fillOpacity="0.35" />
-
-    {/* SHARK TEETH - Sharp white triangles hanging from upper lip inside ventral mouth */}
-    <polygon points="163,98 160,105 156,99" fill="white" />
-    <polygon points="156,99 152,106 148,100" fill="white" />
-    <polygon points="148,100 144,106 140,100" fill="white" />
-    <polygon points="140,100 136,105 133,99" fill="white" />
-
-    {/* Eye - Located above mouth level on the upper head */}
-    <g style={{ transformOrigin: '138px 84px', animation: 'scEyeBlink 5s infinite' }}>
-      <circle cx="138" cy="84" r="8.5" fill="white" />
-      <circle cx="140" cy="84" r="4.5" fill="#0f2230" />
-      <circle cx="138" cy="82" r="2.5" fill="white" />
-      {/* Determined shark eyebrow */}
-      <path d="M 132 77 Q 138 73 144 78" stroke="url(#youngGrad)" strokeWidth="2.2" strokeLinecap="round" />
-    </g>
-    
-    {/* SHARK GILLS - 3 vertical glowing slits */}
-    <path d="M 112 88 Q 109 96 112 104" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeOpacity="0.95" filter="url(#youngGlow)" />
-    <path d="M 118 89 Q 115 96 118 103" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeOpacity="0.95" filter="url(#youngGlow)" />
-    <path d="M 124 90 Q 121 96 124 102" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeOpacity="0.95" filter="url(#youngGlow)" />
-  </svg>
-);
-
-// ── 5. SovereignShark (Tubarão Soberano - Epic detailed neon shark with bioluminescent patterns) ──
-const SovereignShark = () => (
-  <svg width="100%" height="100%" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="sovGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#2575fc" />
-        <stop offset="50%" stopColor="#1a2a6c" />
-        <stop offset="100%" stopColor="#00f2fe" />
-      </linearGradient>
-      <linearGradient id="sovBelly" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#e0f7fa" />
-        <stop offset="100%" stopColor="#26c6da" />
-      </linearGradient>
-      <linearGradient id="sovGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stopColor="#00f2fe" />
-        <stop offset="100%" stopColor="#4facfe" />
-      </linearGradient>
-      <filter id="sovFilter" x="-25%" y="-25%" width="150%" height="150%">
-        <feGaussianBlur stdDeviation="6" result="blur" />
-        <feComposite in="SourceGraphic" in2="blur" operator="over" />
-      </filter>
-    </defs>
-    
-    {/* Pelvic / Anal Fin */}
-    <path d="M 85 124 Q 72 142 85 138" fill="url(#sovGrad)" fillOpacity="0.4" stroke="url(#sovGrad)" strokeWidth="3" />
-    <path d="M 67 118 L 72 130 L 79 119 Z" fill="url(#sovGrad)" fillOpacity="0.4" stroke="url(#sovGrad)" strokeWidth="2" />
-    
-    {/* Second Dorsal Fin */}
-    <path d="M 65 80 L 71 66 L 77 79 Z" fill="url(#sovGrad)" fillOpacity="0.4" stroke="url(#sovGrad)" strokeWidth="2" />
-    
-    {/* HUGE MAJESTIC SHARK DORSAL FIN - Triangular & swept-back */}
-    <g filter="url(#sovFilter)">
-      <path d="M 102 68 L 110 18 L 138 28 Q 130 60 102 68" fill="url(#sovGrad)" fillOpacity="0.4" stroke="url(#sovGrad)" strokeWidth="3.5" />
-      <path d="M 109 56 L 116 28 M 115 60 L 123 34 M 121 63 L 128 42" stroke="url(#sovGlow)" strokeWidth="1.8" strokeOpacity="0.75" />
-    </g>
-    
-    {/* SHARK TAIL (Majestic heterocercal shape) - Pivot at (55, 100) */}
-    <g style={{ transformOrigin: '55px 100px', animation: 'scTailWiggleSlow 0.65s ease-in-out infinite alternate' }}>
-      <path d="M 55 100 Q 10 38 25 96 Q 5 145 55 100 Z" fill="url(#sovGrad)" fillOpacity="0.5" stroke="url(#sovGrad)" strokeWidth="3.5" strokeLinejoin="round" />
-      {/* Decorative bioluminescent tail fin rays */}
-      <path d="M 44 86 L 24 55 M 45 92 L 23 72" stroke="url(#sovGlow)" strokeWidth="2.5" strokeOpacity="0.8" />
-      <path d="M 44 114 L 24 135 L 45 108" stroke="url(#sovGlow)" strokeWidth="2.5" strokeOpacity="0.8" />
-    </g>
-    
-    {/* Pectoral Fin - Large glider shape */}
-    <g style={{ transformOrigin: '115px 118px', animation: 'scFinFlap 1.0s ease-in-out infinite alternate' }}>
-      <path d="M 115 118 L 80 148 Q 98 116 115 118" fill="url(#sovGlow)" fillOpacity="0.5" stroke="url(#sovGlow)" strokeWidth="3" />
-      <path d="M 109 122 L 92 140 M 104 120 L 96 132" stroke="#fff" strokeWidth="1.5" strokeOpacity="0.6" />
-    </g>
-    
-    {/* SHARK BODY - Torpedo-shape, pointed snout, ventral mouth underneath */}
-    <path d="M 55 100 C 75 58, 125 55, 182 86 L 170 96 C 160 112, 138 112, 128 100 C 100 132, 80 128, 55 100 Z" fill="url(#sovGrad)" fillOpacity="0.25" stroke="url(#sovGrad)" strokeWidth="3.5" filter="url(#sovFilter)" />
-    
-    {/* Light Countershaded Belly Overlay */}
-    <path d="M 55 100 C 75 115, 115 115, 128 100 C 138 112, 160 112, 170 96 C 150 110, 115 120, 55 100 Z" fill="url(#sovBelly)" fillOpacity="0.3" />
-
-    {/* Bioluminescent side stripes (Tribal / Wave details) */}
-    <g filter="url(#sovFilter)">
-      <path d="M 75 96 C 92 88, 115 88, 130 96" fill="none" stroke="url(#sovGlow)" strokeWidth="3" strokeOpacity="0.9" strokeLinecap="round" />
-      <path d="M 80 102 C 95 96, 112 96, 125 102" fill="none" stroke="url(#sovGlow)" strokeWidth="2" strokeOpacity="0.9" strokeLinecap="round" />
-    </g>
-    
-    {/* SHARK TEETH - Sharp white triangles hanging inside ventral mouth */}
-    <polygon points="167,97 163,107 159,98" fill="white" />
-    <polygon points="159,98 155,107 151,99" fill="white" />
-    <polygon points="151,99 147,107 143,100" fill="white" />
-    <polygon points="143,100 139,106 135,100" fill="white" />
-    <polygon points="135,100 131,105 128,100" fill="white" />
-
-    {/* Eye - Located above mouth level */}
-    <g style={{ transformOrigin: '142px 82px', animation: 'scEyeBlink 6s infinite' }}>
-      <circle cx="142" cy="82" r="9" fill="white" />
-      <circle cx="144" cy="82" r="5" fill="#1a2a6c" />
-      <circle cx="142" cy="80" r="2.5" fill="#00f2fe" />
-    </g>
-    
-    {/* SHARK GILLS - 4 glowing electric-cyan slits */}
-    <path d="M 110 88 Q 107 96 110 104" fill="none" stroke="#00f2fe" strokeWidth="2.5" strokeOpacity="0.95" strokeLinecap="round" filter="url(#sovFilter)" />
-    <path d="M 116 89 Q 113 96 116 103" fill="none" stroke="#00f2fe" strokeWidth="2.5" strokeOpacity="0.95" strokeLinecap="round" filter="url(#sovFilter)" />
-    <path d="M 122 90 Q 119 96 122 102" fill="none" stroke="#00f2fe" strokeWidth="2.5" strokeOpacity="0.95" strokeLinecap="round" filter="url(#sovFilter)" />
-    <path d="M 127 91 Q 124 96 127 101" fill="none" stroke="#00f2fe" strokeWidth="2.5" strokeOpacity="0.95" strokeLinecap="round" filter="url(#sovFilter)" />
-  </svg>
-);
 
 export default function ScrollCharacter() {
   const wrapperRef    = useRef(null);
@@ -477,7 +118,7 @@ export default function ScrollCharacter() {
           frameRef.current = idx;
           setActiveFrame(idx);
 
-          // Cross-fade SVG graphics
+          // Cross-fade image graphics
           charRefs.current.forEach((charWrap, i) => {
             if (!charWrap) return;
             gsap.to(charWrap, {
@@ -551,25 +192,9 @@ export default function ScrollCharacter() {
       
       {/* ── CSS Keyframe animations for continuous natural fish movement ── */}
       <style>{`
-        @keyframes scTailWiggleFast {
-          0% { transform: rotate(-12deg); }
-          100% { transform: rotate(12deg); }
-        }
-        @keyframes scTailWiggleMedium {
-          0% { transform: rotate(-9deg); }
-          100% { transform: rotate(9deg); }
-        }
-        @keyframes scTailWiggleSlow {
-          0% { transform: rotate(-7deg); }
-          100% { transform: rotate(7deg); }
-        }
-        @keyframes scFinFlap {
-          0% { transform: rotate(-14deg); }
-          100% { transform: rotate(14deg); }
-        }
-        @keyframes scEyeBlink {
-          0%, 90%, 100% { transform: scaleY(1); }
-          95% { transform: scaleY(0.15); }
+        @keyframes scImageSwim {
+          0% { transform: rotate(-5deg) skewX(-3deg) scaleY(0.98); }
+          100% { transform: rotate(5deg) skewX(3deg) scaleY(1.02); }
         }
         @keyframes scLabelPop {
           0% { transform: scale(0.85); opacity: 0; }
@@ -660,7 +285,7 @@ export default function ScrollCharacter() {
             mirrorRef → horizontal flip
               floatRef → idle vertical float
                 bodyWiggleRef → displacement morph & styling
-                  [SVGs] → inline vectors with tail/fin keyframes
+                  [Images] → Nanobanana transparent images with natural wiggle
          ══════════════════════════════════════════════ */}
       <div
         ref={wrapperRef}
@@ -682,50 +307,36 @@ export default function ScrollCharacter() {
                 filter: 'url(#sc-water-morph)',
               }}
             >
-              {/* Stage 1: Bebê Peixinho */}
-              <div
-                ref={el => charRefs.current[0] = el}
-                className="absolute inset-0"
-                style={{ opacity: 1, transform: 'scale(1)', willChange: 'opacity,transform' }}
-              >
-                <BabyFish />
-              </div>
-
-              {/* Stage 2: Peixinho Dourado */}
-              <div
-                ref={el => charRefs.current[1] = el}
-                className="absolute inset-0"
-                style={{ opacity: 0, transform: 'scale(0.82)', willChange: 'opacity,transform' }}
-              >
-                <JuniorFish />
-              </div>
-
-              {/* Stage 3: Peixe-Palhaço */}
-              <div
-                ref={el => charRefs.current[2] = el}
-                className="absolute inset-0"
-                style={{ opacity: 0, transform: 'scale(0.82)', willChange: 'opacity,transform' }}
-              >
-                <PredatorFish />
-              </div>
-
-              {/* Stage 4: Tubarão Jovem */}
-              <div
-                ref={el => charRefs.current[3] = el}
-                className="absolute inset-0"
-                style={{ opacity: 0, transform: 'scale(0.82)', willChange: 'opacity,transform' }}
-              >
-                <YoungShark />
-              </div>
-
-              {/* Stage 5: Tubarão Soberano */}
-              <div
-                ref={el => charRefs.current[4] = el}
-                className="absolute inset-0"
-                style={{ opacity: 0, transform: 'scale(0.82)', willChange: 'opacity,transform' }}
-              >
-                <SovereignShark />
-              </div>
+              {/* NO solid black background overlay box!
+                  This enables mix-blend-mode screen to render with absolute transparency. */}
+              {frames.map((frame, idx) => (
+                <div
+                  key={idx}
+                  ref={el => charRefs.current[idx] = el}
+                  className="absolute inset-0"
+                  style={{
+                    opacity: idx === 0 ? 1 : 0,
+                    transform: idx === 0 ? 'scale(1)' : 'scale(0.82)',
+                    willChange: 'opacity,transform',
+                  }}
+                >
+                  <img
+                    src={frame.image}
+                    alt={frame.label}
+                    draggable={false}
+                    className="w-full h-full object-contain"
+                    style={{
+                      // Clean screen blend: black is keyed out, making the asset 100% transparent
+                      mixBlendMode: 'screen',
+                      filter: `drop-shadow(0 0 28px ${phaseColors[idx].glowHex})`,
+                      userSelect: 'none',
+                      // Pivot at the snout (right-center) so tail swings organically
+                      transformOrigin: '75% 50%',
+                      animation: `scImageSwim ${frame.duration} ease-in-out infinite alternate`,
+                    }}
+                  />
+                </div>
+              ))}
 
             </div>
           </div>
