@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -6,11 +6,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const frames = [
-  { label: 'Bebê Peixinho (Nascimento)',      phase: '01', image: '/nb_baby_fish.png',      duration: '0.5s' },
-  { label: 'Peixinho Dourado (Crescimento)',  phase: '02', image: '/nb_junior_fish.png',    duration: '0.7s' },
-  { label: 'Peixe-Palhaço (Autonomia)',       phase: '03', image: '/nb_clown_fish.png',     duration: '0.9s' },
-  { label: 'Tubarãozinho Aprendiz (Técnica)',  phase: '04', image: '/nb_young_shark.png',    duration: '1.1s' },
-  { label: 'Tubarão Soberano (Domínio)',      phase: '05', image: '/nb_sovereign_shark.png', duration: '1.4s' },
+  { label: 'Bebê Peixinho (Nascimento)',      phase: '01', image: '/nb_baby_fish.png',      duration: '0.6s' },
+  { label: 'Peixinho Dourado (Crescimento)',  phase: '02', image: '/nb_junior_fish.png',    duration: '0.8s' },
+  { label: 'Peixe-Palhaço (Autonomia)',       phase: '03', image: '/nb_clown_fish.png',     duration: '1.0s' },
+  { label: 'Tubarãozinho Aprendiz (Técnica)',  phase: '04', image: '/nb_young_shark.png',    duration: '1.2s' },
+  { label: 'Tubarão Soberano (Domínio)',      phase: '05', image: '/nb_sovereign_shark.png', duration: '1.5s' },
 ];
 
 const phaseColors = [
@@ -20,6 +20,56 @@ const phaseColors = [
   { from: '#00f2fe', to: '#4facfe', glow: 'rgba(0,242,254,0.45)',  glowHex: '#00f2fe' },
   { from: '#2575fc', to: '#1a2a6c', glow: 'rgba(37,117,252,0.55)', glowHex: '#2575fc' },
 ];
+
+// Custom component to dynamically crop the black background from Nanobanana images
+const TransparentFish = ({ src, alt, className, style }) => {
+  const [cleanSrc, setCleanSrc] = useState('');
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = src;
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      
+      try {
+        const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imgData.data;
+        
+        // Convert any very dark pixel (black background) to transparent
+        for (let i = 0; i < data.length; i += 4) {
+          const r = data[i];
+          const g = data[i+1];
+          const b = data[i+2];
+          
+          if (r < 18 && g < 18 && b < 18) {
+            data[i+3] = 0; // Alpha transparent
+          }
+        }
+        ctx.putImageData(imgData, 0, 0);
+        setCleanSrc(canvas.toDataURL());
+      } catch (e) {
+        console.error("Canvas process error: ", e);
+        setCleanSrc(src); // Fallback to raw src if failed
+      }
+    };
+  }, [src]);
+
+  if (!cleanSrc) return <div className="w-full h-full animate-pulse bg-sky-950/20 rounded-full" />;
+
+  return (
+    <img
+      src={cleanSrc}
+      alt={alt}
+      className={className}
+      style={style}
+      draggable={false}
+    />
+  );
+};
 
 export default function ScrollCharacter() {
   const wrapperRef    = useRef(null);
@@ -66,7 +116,6 @@ export default function ScrollCharacter() {
         kickObj.phase += 0.016 * 8;
         const phase = kickObj.phase;
         const vel = Number(velocityFactorRef.current) || 0;
-        // Mild wave scale so it has fluid organic water refraction shimmer
         const dispAmp = 4 + vel * 20;
         const dispVal = morphScaleRef.current + Math.sin(phase) * dispAmp;
 
@@ -193,8 +242,9 @@ export default function ScrollCharacter() {
       {/* ── CSS Keyframe animations for continuous natural fish movement ── */}
       <style>{`
         @keyframes scImageSwim {
-          0% { transform: rotate(-5deg) skewX(-3deg) scaleY(0.98); }
-          100% { transform: rotate(5deg) skewX(3deg) scaleY(1.02); }
+          0% { transform: rotate(-6deg) skewX(-4deg) scaleY(0.97) translateX(-3px); }
+          50% { transform: rotate(0deg) skewX(0deg) scaleY(1.02) translateX(1px); }
+          100% { transform: rotate(6deg) skewX(4deg) scaleY(0.97) translateX(-3px); }
         }
         @keyframes scLabelPop {
           0% { transform: scale(0.85); opacity: 0; }
@@ -285,7 +335,7 @@ export default function ScrollCharacter() {
             mirrorRef → horizontal flip
               floatRef → idle vertical float
                 bodyWiggleRef → displacement morph & styling
-                  [Images] → Nanobanana transparent images with natural wiggle
+                  [TransparentFish] → Nanobanana cropped images with natural wiggle
          ══════════════════════════════════════════════ */}
       <div
         ref={wrapperRef}
@@ -307,8 +357,7 @@ export default function ScrollCharacter() {
                 filter: 'url(#sc-water-morph)',
               }}
             >
-              {/* NO solid black background overlay box!
-                  This enables mix-blend-mode screen to render with absolute transparency. */}
+              {/* Render dynamic background-removed cropped assets with organic swim movement */}
               {frames.map((frame, idx) => (
                 <div
                   key={idx}
@@ -320,17 +369,13 @@ export default function ScrollCharacter() {
                     willChange: 'opacity,transform',
                   }}
                 >
-                  <img
+                  <TransparentFish
                     src={frame.image}
                     alt={frame.label}
-                    draggable={false}
                     className="w-full h-full object-contain"
                     style={{
-                      // Clean screen blend: black is keyed out, making the asset 100% transparent
-                      mixBlendMode: 'screen',
-                      filter: `drop-shadow(0 0 28px ${phaseColors[idx].glowHex})`,
+                      filter: `drop-shadow(0 0 24px ${phaseColors[idx].glowHex}aa)`,
                       userSelect: 'none',
-                      // Pivot at the snout (right-center) so tail swings organically
                       transformOrigin: '75% 50%',
                       animation: `scImageSwim ${frame.duration} ease-in-out infinite alternate`,
                     }}
