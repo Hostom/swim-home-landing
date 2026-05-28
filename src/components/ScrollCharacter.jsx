@@ -223,7 +223,7 @@ const PredatorFish = () => (
   </svg>
 );
 
-// ── 4. YoungShark (Tubarão Jovem - Detailed apprentice shark with countershading & gill slits) ──
+// ── 4. YoungShark (Tubarão Jovem - Clearly a shark: pointed snout, ventral mouth under the snout, sharp teeth, heterocercal tail) ──
 const YoungShark = () => (
   <svg width="100%" height="100%" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
@@ -241,62 +241,58 @@ const YoungShark = () => (
       </filter>
     </defs>
     
-    {/* Pelvic Fin with rays */}
-    <g>
-      <path d="M 85 122 Q 72 137 82 134" fill="url(#youngGrad)" fillOpacity="0.4" stroke="url(#youngGrad)" strokeWidth="2.5" />
-      <path d="M 83 124 L 77 132" stroke="#fff" strokeWidth="1.2" strokeOpacity="0.5" />
-    </g>
+    {/* Pelvic / Anal Fin */}
+    <path d="M 85 122 Q 72 137 82 134" fill="url(#youngGrad)" fillOpacity="0.4" stroke="url(#youngGrad)" strokeWidth="2.5" />
+    <path d="M 72 116 L 76 126 L 82 117 Z" fill="url(#youngGrad)" fillOpacity="0.4" stroke="url(#youngGrad)" strokeWidth="2" />
     
-    {/* ICONIC SHARK DORSAL FIN - Triangular, with detailed skeleton rays */}
+    {/* Second Dorsal Fin (near tail) */}
+    <path d="M 70 82 L 75 70 L 80 81 Z" fill="url(#youngGrad)" fillOpacity="0.4" stroke="url(#youngGrad)" strokeWidth="2" />
+    
+    {/* ICONIC SHARK DORSAL FIN - Triangular, swept-back, sharp */}
     <g filter="url(#youngGlow)">
-      <path d="M 96 70 L 105 28 L 122 35 Q 118 64 96 70" fill="url(#youngGrad)" fillOpacity="0.45" stroke="url(#youngGrad)" strokeWidth="3.5" />
-      <path d="M 103 60 L 109 38" stroke="#fff" strokeWidth="1.5" strokeOpacity="0.4" />
-      <path d="M 108 63 L 114 42" stroke="#fff" strokeWidth="1.5" strokeOpacity="0.4" />
+      <path d="M 92 71 L 102 28 L 120 38 Q 115 67 92 71" fill="url(#youngGrad)" fillOpacity="0.45" stroke="url(#youngGrad)" strokeWidth="3.5" />
+      <path d="M 99 61 L 106 38 M 104 63 L 111 42" stroke="#fff" strokeWidth="1.5" strokeOpacity="0.4" />
     </g>
     
-    {/* SHARK TAIL (Heterocercal) - Pivot at (60, 100) */}
+    {/* SHARK TAIL (Heterocercal - long upper lobe, short lower lobe) - Pivot at (60, 100) */}
     <g style={{ transformOrigin: '60px 100px', animation: 'scTailWiggleSlow 0.6s ease-in-out infinite alternate' }}>
-      <path d="M 60 100 Q 20 50 32 98 Q 15 138 60 100 Z" fill="url(#youngGrad)" fillOpacity="0.5" stroke="url(#youngGrad)" strokeWidth="3" strokeLinejoin="round" />
+      <path d="M 60 100 Q 15 45 28 95 Q 12 135 60 100 Z" fill="url(#youngGrad)" fillOpacity="0.5" stroke="url(#youngGrad)" strokeWidth="3" strokeLinejoin="round" />
       {/* Tail skeleton rays */}
       <path d="M 52 92 L 30 68 M 52 95 L 29 80" stroke="#fff" strokeWidth="1.5" strokeOpacity="0.5" />
-      <path d="M 52 105 L 26 122 M 52 108 L 32 114" stroke="#fff" strokeWidth="1.5" strokeOpacity="0.5" />
+      <path d="M 52 105 L 26 122" stroke="#fff" strokeWidth="1.5" strokeOpacity="0.5" />
     </g>
     
-    {/* Pectoral Fin - Pivot at (112, 118) */}
+    {/* Pectoral Fin - Pointed and swept back like a glider */}
     <g style={{ transformOrigin: '112px 118px', animation: 'scFinFlap 0.9s ease-in-out infinite alternate' }}>
-      <path d="M 112 118 Q 95 142 82 134 Q 96 116 112 118" fill="url(#youngGrad)" fillOpacity="0.5" stroke="url(#youngGrad)" strokeWidth="3" />
+      <path d="M 112 118 L 82 144 Q 96 116 112 118" fill="url(#youngGrad)" fillOpacity="0.5" stroke="url(#youngGrad)" strokeWidth="3" />
       <path d="M 106 122 L 91 137 M 102 120 L 95 132" stroke="#fff" strokeWidth="1.2" strokeOpacity="0.5" />
     </g>
     
-    {/* SHARK BODY - countershading (dark back, light belly) */}
-    <g filter="url(#youngGlow)">
-      {/* Dark back half */}
-      <path d="M 60 100 C 80 62, 120 62, 168 96 C 130 96, 90 98, 60 100 Z" fill="url(#youngGrad)" fillOpacity="0.25" stroke="url(#youngGrad)" strokeWidth="3.5" />
-      {/* Light belly half */}
-      <path d="M 60 100 C 90 98, 130 96, 168 96 C 130 115, 90 120, 60 100 Z" fill="url(#youngBelly)" fillOpacity="0.3" stroke="url(#youngGrad)" strokeWidth="3.5" />
-    </g>
+    {/* SHARK BODY - Torpedo shape with pointed snout and ventral mouth underneath */}
+    <path d="M 60 100 C 80 62, 120 62, 175 88 L 165 97 C 156 108, 140 108, 132 99 C 105 125, 90 120, 60 100 Z" fill="url(#youngGrad)" fillOpacity="0.25" stroke="url(#youngGrad)" strokeWidth="3.5" filter="url(#youngGlow)" />
     
-    {/* 3D highlights */}
-    <path d="M 60 100 C 80 62, 120 62, 168 96 C 130 75, 90 75, 60 100 Z" fill="#fff" fillOpacity="0.1" />
+    {/* Light Countershaded Belly Overlay */}
+    <path d="M 60 100 C 80 115, 115 115, 132 99 C 140 108, 156 108, 165 97 C 145 108, 115 118, 60 100 Z" fill="url(#youngBelly)" fillOpacity="0.35" />
 
-    {/* Eye - Pivot at (134, 88) */}
-    <g style={{ transformOrigin: '134px 88px', animation: 'scEyeBlink 5s infinite' }}>
-      <circle cx="134" cy="88" r="8.5" fill="white" />
-      <circle cx="136" cy="88" r="4.5" fill="#0f2230" />
-      <circle cx="134" cy="86" r="2.5" fill="white" />
-      {/* Cute eyebrow */}
-      <path d="M 129 80 Q 134 77 139 81" stroke="url(#youngGrad)" strokeWidth="2" strokeLinecap="round" />
+    {/* SHARK TEETH - Sharp white triangles hanging from upper lip inside ventral mouth */}
+    <polygon points="163,98 160,105 156,99" fill="white" />
+    <polygon points="156,99 152,106 148,100" fill="white" />
+    <polygon points="148,100 144,106 140,100" fill="white" />
+    <polygon points="140,100 136,105 133,99" fill="white" />
+
+    {/* Eye - Located above mouth level on the upper head */}
+    <g style={{ transformOrigin: '138px 84px', animation: 'scEyeBlink 5s infinite' }}>
+      <circle cx="138" cy="84" r="8.5" fill="white" />
+      <circle cx="140" cy="84" r="4.5" fill="#0f2230" />
+      <circle cx="138" cy="82" r="2.5" fill="white" />
+      {/* Determined shark eyebrow */}
+      <path d="M 132 77 Q 138 73 144 78" stroke="url(#youngGrad)" strokeWidth="2.2" strokeLinecap="round" />
     </g>
     
-    {/* SHARK GILLS - 3 very visible white/cyan glowing slits */}
-    <path d="M 112 90 Q 109 98 112 106" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeOpacity="0.9" filter="url(#youngGlow)" />
-    <path d="M 118 91 Q 115 98 118 105" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeOpacity="0.9" filter="url(#youngGlow)" />
-    <path d="M 124 92 Q 121 98 124 104" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeOpacity="0.9" filter="url(#youngGlow)" />
-    
-    {/* Smile + soft rounded shark teeth */}
-    <path d="M 148 103 Q 138 110 132 105" fill="none" stroke="url(#youngGrad)" strokeWidth="2.5" strokeLinecap="round" />
-    <polygon points="142,106 144,109 146,106" fill="white" />
-    <polygon points="137,105 139,108 141,105" fill="white" />
+    {/* SHARK GILLS - 3 vertical glowing slits */}
+    <path d="M 112 88 Q 109 96 112 104" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeOpacity="0.95" filter="url(#youngGlow)" />
+    <path d="M 118 89 Q 115 96 118 103" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeOpacity="0.95" filter="url(#youngGlow)" />
+    <path d="M 124 90 Q 121 96 124 102" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeOpacity="0.95" filter="url(#youngGlow)" />
   </svg>
 );
 
@@ -323,61 +319,64 @@ const SovereignShark = () => (
       </filter>
     </defs>
     
-    {/* Lower Fin */}
+    {/* Pelvic / Anal Fin */}
     <path d="M 85 124 Q 72 142 85 138" fill="url(#sovGrad)" fillOpacity="0.4" stroke="url(#sovGrad)" strokeWidth="3" />
+    <path d="M 67 118 L 72 130 L 79 119 Z" fill="url(#sovGrad)" fillOpacity="0.4" stroke="url(#sovGrad)" strokeWidth="2" />
     
-    {/* HUGE SHARK DORSAL FIN - Highly detailed with bioluminescent patterns */}
+    {/* Second Dorsal Fin */}
+    <path d="M 65 80 L 71 66 L 77 79 Z" fill="url(#sovGrad)" fillOpacity="0.4" stroke="url(#sovGrad)" strokeWidth="2" />
+    
+    {/* HUGE MAJESTIC SHARK DORSAL FIN - Triangular & swept-back */}
     <g filter="url(#sovFilter)">
       <path d="M 102 68 L 110 18 L 138 28 Q 130 60 102 68" fill="url(#sovGrad)" fillOpacity="0.4" stroke="url(#sovGrad)" strokeWidth="3.5" />
       <path d="M 109 56 L 116 28 M 115 60 L 123 34 M 121 63 L 128 42" stroke="url(#sovGlow)" strokeWidth="1.8" strokeOpacity="0.75" />
     </g>
     
-    {/* SHARK TAIL - Pivot at (55, 100) */}
+    {/* SHARK TAIL (Majestic heterocercal shape) - Pivot at (55, 100) */}
     <g style={{ transformOrigin: '55px 100px', animation: 'scTailWiggleSlow 0.65s ease-in-out infinite alternate' }}>
-      <path d="M 55 100 Q 12 40 26 96 Q 8 148 55 100 Z" fill="url(#sovGrad)" fillOpacity="0.5" stroke="url(#sovGrad)" strokeWidth="3.5" strokeLinejoin="round" />
+      <path d="M 55 100 Q 10 38 25 96 Q 5 145 55 100 Z" fill="url(#sovGrad)" fillOpacity="0.5" stroke="url(#sovGrad)" strokeWidth="3.5" strokeLinejoin="round" />
       {/* Decorative bioluminescent tail fin rays */}
       <path d="M 44 86 L 24 55 M 45 92 L 23 72" stroke="url(#sovGlow)" strokeWidth="2.5" strokeOpacity="0.8" />
-      <path d="M 44 114 L 24 135 M 45 108 L 23 118" stroke="url(#sovGlow)" strokeWidth="2.5" strokeOpacity="0.8" />
+      <path d="M 44 114 L 24 135 L 45 108" stroke="url(#sovGlow)" strokeWidth="2.5" strokeOpacity="0.8" />
     </g>
     
-    {/* Pectoral Fin - Pivot at (115, 118) */}
+    {/* Pectoral Fin - Large glider shape */}
     <g style={{ transformOrigin: '115px 118px', animation: 'scFinFlap 1.0s ease-in-out infinite alternate' }}>
-      <path d="M 115 118 Q 98 145 84 136 Q 98 116 115 118" fill="url(#sovGlow)" fillOpacity="0.5" stroke="url(#sovGlow)" strokeWidth="3" />
+      <path d="M 115 118 L 80 148 Q 98 116 115 118" fill="url(#sovGlow)" fillOpacity="0.5" stroke="url(#sovGlow)" strokeWidth="3" />
       <path d="M 109 122 L 92 140 M 104 120 L 96 132" stroke="#fff" strokeWidth="1.5" strokeOpacity="0.6" />
     </g>
     
-    {/* SHARK BODY - Countershading */}
-    <g filter="url(#sovFilter)">
-      {/* Dark back */}
-      <path d="M 55 100 C 78 58, 138 58, 178 95 C 140 96, 90 98, 55 100 Z" fill="url(#sovGrad)" fillOpacity="0.25" stroke="url(#sovGrad)" strokeWidth="3.5" />
-      {/* Light neon belly */}
-      <path d="M 55 100 C 90 98, 140 96, 178 96 C 140 122, 90 125, 55 100 Z" fill="url(#sovBelly)" fillOpacity="0.25" stroke="url(#sovGrad)" strokeWidth="3.5" />
-    </g>
+    {/* SHARK BODY - Torpedo-shape, pointed snout, ventral mouth underneath */}
+    <path d="M 55 100 C 75 58, 125 55, 182 86 L 170 96 C 160 112, 138 112, 128 100 C 100 132, 80 128, 55 100 Z" fill="url(#sovGrad)" fillOpacity="0.25" stroke="url(#sovGrad)" strokeWidth="3.5" filter="url(#sovFilter)" />
     
+    {/* Light Countershaded Belly Overlay */}
+    <path d="M 55 100 C 75 115, 115 115, 128 100 C 138 112, 160 112, 170 96 C 150 110, 115 120, 55 100 Z" fill="url(#sovBelly)" fillOpacity="0.3" />
+
     {/* Bioluminescent side stripes (Tribal / Wave details) */}
     <g filter="url(#sovFilter)">
       <path d="M 75 96 C 92 88, 115 88, 130 96" fill="none" stroke="url(#sovGlow)" strokeWidth="3" strokeOpacity="0.9" strokeLinecap="round" />
       <path d="M 80 102 C 95 96, 112 96, 125 102" fill="none" stroke="url(#sovGlow)" strokeWidth="2" strokeOpacity="0.9" strokeLinecap="round" />
     </g>
     
-    {/* Eye - Pivot at (136, 86) */}
-    <g style={{ transformOrigin: '136px 86px', animation: 'scEyeBlink 6s infinite' }}>
-      <circle cx="136" cy="86" r="9" fill="white" />
-      <circle cx="138" cy="86" r="5" fill="#1a2a6c" />
-      <circle cx="136" cy="84" r="2.5" fill="#00f2fe" />
+    {/* SHARK TEETH - Sharp white triangles hanging inside ventral mouth */}
+    <polygon points="167,97 163,107 159,98" fill="white" />
+    <polygon points="159,98 155,107 151,99" fill="white" />
+    <polygon points="151,99 147,107 143,100" fill="white" />
+    <polygon points="143,100 139,106 135,100" fill="white" />
+    <polygon points="135,100 131,105 128,100" fill="white" />
+
+    {/* Eye - Located above mouth level */}
+    <g style={{ transformOrigin: '142px 82px', animation: 'scEyeBlink 6s infinite' }}>
+      <circle cx="142" cy="82" r="9" fill="white" />
+      <circle cx="144" cy="82" r="5" fill="#1a2a6c" />
+      <circle cx="142" cy="80" r="2.5" fill="#00f2fe" />
     </g>
     
     {/* SHARK GILLS - 4 glowing electric-cyan slits */}
-    <path d="M 110 88 Q 107 98 110 108" fill="none" stroke="#00f2fe" strokeWidth="2.5" strokeOpacity="0.95" strokeLinecap="round" filter="url(#sovFilter)" />
-    <path d="M 116 89 Q 113 98 116 107" fill="none" stroke="#00f2fe" strokeWidth="2.5" strokeOpacity="0.95" strokeLinecap="round" filter="url(#sovFilter)" />
-    <path d="M 122 90 Q 119 98 122 106" fill="none" stroke="#00f2fe" strokeWidth="2.5" strokeOpacity="0.95" strokeLinecap="round" filter="url(#sovFilter)" />
-    <path d="M 127 91 Q 124 98 127 105" fill="none" stroke="#00f2fe" strokeWidth="2.5" strokeOpacity="0.95" strokeLinecap="round" filter="url(#sovFilter)" />
-    
-    {/* Friendly smile with sharp shark teeth */}
-    <path d="M 152 102 Q 142 115 132 105 Z" fill="#1a2a6c" fillOpacity="0.5" stroke="url(#sovGlow)" strokeWidth="2.5" />
-    <polygon points="146,103 148,107 150,103" fill="white" />
-    <polygon points="140,103 142,107 144,103" fill="white" />
-    <polygon points="134,103 136,107 138,103" fill="white" />
+    <path d="M 110 88 Q 107 96 110 104" fill="none" stroke="#00f2fe" strokeWidth="2.5" strokeOpacity="0.95" strokeLinecap="round" filter="url(#sovFilter)" />
+    <path d="M 116 89 Q 113 96 116 103" fill="none" stroke="#00f2fe" strokeWidth="2.5" strokeOpacity="0.95" strokeLinecap="round" filter="url(#sovFilter)" />
+    <path d="M 122 90 Q 119 96 122 102" fill="none" stroke="#00f2fe" strokeWidth="2.5" strokeOpacity="0.95" strokeLinecap="round" filter="url(#sovFilter)" />
+    <path d="M 127 91 Q 124 96 127 101" fill="none" stroke="#00f2fe" strokeWidth="2.5" strokeOpacity="0.95" strokeLinecap="round" filter="url(#sovFilter)" />
   </svg>
 );
 
